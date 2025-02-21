@@ -1,0 +1,36 @@
+pipeline
+  {
+    
+    agent any
+    
+    tools{
+        maven 'mymaven'
+    }
+    
+    stages{
+        stage('checkout code')
+        {
+            steps
+            {
+                git  'https://github.com/lijuk39/Maven-Build.git'
+            }
+        }
+        
+        stage('Build and Deploy the Code')
+        {
+            steps
+            {
+                sh 'mvn  package'
+            }
+            
+            post{
+                
+                {
+                    deploy adapters: [tomcat9(credentialsId: tomcatcredentials, path: '', url: 'http://localhost:9090/')], contextPath: null, war: '**/*.war'
+                }
+                
+            }
+        }
+        
+    }
+    }
