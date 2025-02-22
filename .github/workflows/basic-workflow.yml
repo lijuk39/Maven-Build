@@ -8,3 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo " Job is executing as part of Basic workflow"
+      - run: groovy jenkins-script.groovy
